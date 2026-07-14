@@ -1,0 +1,58 @@
+# ============================================================
+#  THE MINUTE - .gitignore
+#  Keeps every secret, key, and private note OUT of the repo.
+#  If a file is not listed here and is not source code, ask
+#  yourself twice before committing it.
+# ============================================================
+
+# ---- SECRETS - never, ever commit --------------------------
+server/config.json
+config.json
+*.key
+*.pem
+*.p12
+id_*
+.env
+.env.*
+
+# ---- Runtime data (ledger, claims, promo codes, affiliates, anchors) ----
+server/data/
+data/
+*.ots
+seal/
+
+# ---- Rust build artifacts ----------------------------------
+server/target/
+target/
+
+# ---- Private notes / brain / planning (internal only) ------
+HOT.md
+SESSION_LOG.md
+PLAN.md
+PLAN_AFFILIE.md
+MEMORY.md
+INDEX.md
+CONCEPT.md
+CONTINUITE.md
+
+# ---- Internal proofs, secret-bearing test scripts, demos, screenshots ----
+PREUVES/
+DEMO.html
+DEMO-REMPLIE.sh
+EXEMPLE-monument-telecharge.html
+
+# ---- Backup archives (a full copy of the project = ALL secrets inside) ----
+*.tar.gz
+*.tgz
+*.zip
+SAUVEGARDE-*
+
+# ---- Internal launcher (reads the private config.json) -----
+VOIR-LE-VRAI-SITE.sh
+
+# ---- OS / editor junk --------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

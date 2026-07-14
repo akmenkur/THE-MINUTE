@@ -1,0 +1,35 @@
+# Options globales : timeouts stricts. Caddy est le seul point d'entree public ;
+# il coupe les clients lents (slowloris) avant qu'ils n'atteignent le serveur
+# Rust, qui n'a que 4 threads bloquants et pas de timeout socket propre.
+{
+	servers {
+		timeouts {
+			read_body 15s
+			read_header 10s
+			write 30s
+			idle 2m
+		}
+	}
+}
+
+# HTTPS automatique - minuteofforever.com
+minuteofforever.com {
+	# Le tableau de bord admin n'est JAMAIS expose au web public : on renvoie 404
+	# sur /admin depuis internet. Tu y accedes par un tunnel SSH direct au port du
+	# serveur (ssh -L 9000:127.0.0.1:8080 <vps>, puis http://localhost:9000/admin/<token>).
+	# Deux barrieres : ta cle SSH + le token admin.
+	@admin path /admin /admin/*
+	respond @admin 404
+
+	reverse_proxy 127.0.0.1:8080 {
+		# XFF autoritatif : on ECRASE toute valeur envoyee par le client par la
+		# vraie IP source, sinon un client peut usurper son IP et contourner le
+		# rate-limit (le serveur lit le dernier hop de XFF - defense en profondeur).
+		header_up X-Forwarded-For {remote_host}
+	}
+	encode gzip
+}
+
+www.minuteofforever.com {
+	redir https://minuteofforever.com{uri} permanent
+}

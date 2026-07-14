@@ -1,0 +1,15 @@
+{
+  "btc_address": "",
+  "price_sats": 21000,
+  "bind": "127.0.0.1:8080",
+  "data_dir": "data",
+  "site_index": "../index.html",
+  "admin_token": "",
+  "esplora_apis": ["https://mempool.space/api", "https://blockstream.info/api"],
+  "poll_secs": 60,
+  "claim_expiry_hours": 72,
+  "auto_engrave_hours": 6,
+  "min_lead_hours": 12,
+  "xpub": "",
+  "xpub_start_index": 1
+}
